@@ -1,0 +1,21 @@
+spring:
+  kafka:
+      bootstrap-servers: localhost:9092
+      consumer:
+        group-id: foo
+        auto-offset-reset: earliest
+        key-deserializer: org.apache.kafka.common.serialization.IntegerDeserializer
+        value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      producer:
+        key-serializer: org.apache.kafka.common.serialization.IntegerSerializer
+        value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+
+reactor-kafka:
+  props:
+    '[bootstrap.servers]':     ${spring.kafka.bootstrap-servers}
+    '[key.serializer]': ${spring.kafka.producer.key-serializer}
+    '[value.serializer]': ${spring.kafka.producer.value-serializer}
+    '[key.deserializer]': ${spring.kafka.consumer.key-deserializer}
+    '[value.deserializer]': ${spring.kafka.consumer.value-deserializer}
+    '[group.id]': ${spring.kafka.consumer.group-id}
